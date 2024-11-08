@@ -454,8 +454,10 @@ namespace ProgrammingCourseworkGUI
 
         void TryPadlock()
         {
+            // Creates new instance of padlockForm
             padlockForm padlockForm = new padlockForm(this, padlockCodeOne, padlockCodeTwo, padlockCodeThree);
 
+            // Displays padlock form
             padlockForm.Show();
         }
         //reference: https://stackoverflow.com/questions/6666368/c-how-to-hide-one-form-and-show-another
@@ -497,6 +499,7 @@ namespace ProgrammingCourseworkGUI
             }
         }
 
+        // Location where player can find out padlock code
         void ExaminePictureFrame()
         {
             if (!inventory.Contains(goldenBell))
@@ -576,6 +579,7 @@ namespace ProgrammingCourseworkGUI
 
         private void GoToBed()
         {
+            //Checks if player has all 3 jewels
             if (inventory.Contains(blackJewel) && inventory.Contains(blueJewel) && inventory.Contains(orangeJewel))
             {
                 mainLabel.Text = "You walk over to the bed.\n" +
@@ -589,6 +593,7 @@ namespace ProgrammingCourseworkGUI
 
                 MessageBox.Show("You have successfully escaped!");
 
+                // Closes form, ending the game
                 this.Close();
             }
             else
@@ -609,10 +614,12 @@ namespace ProgrammingCourseworkGUI
 
         private void CollectExtract()
         {
+            // Path to text file containing information about runes
             string path = "runes.txt";
 
             if (File.Exists(path))
             {
+                // Reads content of file into a variable
                 string text = File.ReadAllText(path);
 
                 subOptionLabel.Text = "You find a piece of paper tucked neatly under the pillow.\n" +
@@ -629,15 +636,18 @@ namespace ProgrammingCourseworkGUI
             }
         }
 
+        // For when an item in inventory listbox is selected
         private void InventoryListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Checks if an item is selected
             if (inventoryListBox.SelectedIndex != -1)
             {
-                int selectedIndex = inventoryListBox.SelectedIndex;
+                int selectedIndex = inventoryListBox.SelectedIndex; // gets index of selected item
 
+                // Checks selected index is within valid range
                 if (selectedIndex >= 0 && selectedIndex < inventory.Count)
                 {
-                    var selectedItem = inventory[selectedIndex];
+                    var selectedItem = inventory[selectedIndex]; // retrieves selected item from inventory
 
                     subOptionLabel.Text = $"Description: {selectedItem.description}\n" +
                                           $"Rarity: {selectedItem.rarity}\n" +
@@ -646,10 +656,9 @@ namespace ProgrammingCourseworkGUI
             }
         }
 
-
-
         void UserStats()
         {
+            // To ensure stats are within 0-100
             Debug.Assert(playerOne.health! > -1 && playerOne.health! < 101);
             Debug.Assert(playerOne.energy! > -1 && playerOne.energy! < 101);
 
@@ -682,7 +691,10 @@ namespace ProgrammingCourseworkGUI
 
         private void tutorialButton_Click(object sender, EventArgs e)
         {
+            // Displays tutorial form
             tutorialForm.Show();
+
+            // Displays first page of tutorial
             tutorialForm.DisplayTutorialPageOne();
         }
 
@@ -746,6 +758,3 @@ namespace ProgrammingCourseworkGUI
         }
     }
 }
-
-//images in pictureboxes from https://opengameart.org/
-
