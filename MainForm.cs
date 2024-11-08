@@ -6,6 +6,7 @@ using System.Xml.Linq;
 
 namespace ProgrammingCourseworkGUI
 {
+    // Review: 'mainForm' doesn't follow standard naming conventions for classes (should be 'MainForm')
     public partial class mainForm : Form
     {
         // Other forms
@@ -41,15 +42,14 @@ namespace ProgrammingCourseworkGUI
         public mainForm()
         {
             InitializeComponent();
-
             UserStats();
-
             inventoryListBox.SelectedIndexChanged += InventoryListBox_SelectedIndexChanged;
 
             tutorialForm = new tutorialForm();
             arcadeForm = new arcadeForm(this);
 
             // Initialising items and setting their properties
+            // Review: This could be refactored into a function
             torch = new Inventory();
             torch.name = "Torch";
             torch.description = "A torch that still has some battery left.";
@@ -121,11 +121,11 @@ namespace ProgrammingCourseworkGUI
                               "Please enter the initials of your choice from the options below into the text box and press enter:\n" +
                               "(e.g. c for Cabinet)\n\n";
 
+            // Review: could have used a foreach loop instead, which is more appropriate for a list
             for (int i = 0; i < choice.Count; i++)
             {
                 mainLabel.Text += $"- {choice[i]}\n";
             }
-
         }
 
         private void enterButton_Click(object sender, EventArgs e)
@@ -134,58 +134,47 @@ namespace ProgrammingCourseworkGUI
 
             if (userInput == "c" && locationLabel.Text == "Room")
             {
-                choiceTextBox.Clear();
-
+                choiceTextBox.Clear(); // clears input text box
                 CabinetOptions();
             }
             else if (userInput == "td" && locationLabel.Text == "Cabinet")
             {
                 choiceTextBox.Clear();
-
                 OpenTopDrawer();
-
             }
             else if (userInput == "md" && locationLabel.Text == "Cabinet")
             {
                 choiceTextBox.Clear();
-
                 OpenMiddleDrawer();
             }
             else if (userInput == "bd" && locationLabel.Text == "Cabinet")
             {
                 choiceTextBox.Clear();
-
                 OpenBottomDrawer();
             }
             else if (userInput == "b" && locationLabel.Text == "Cabinet")
             {
                 choiceTextBox.Clear();
-
                 PickUpBox();
             }
             else if (userInput == "w" && locationLabel.Text == "Room")
             {
                 choiceTextBox.Clear();
-
                 WindowOptions();
-
             }
             else if (userInput == "pa")
             {
                 choiceTextBox.Clear();
-
                 TryPadlock();
             }
             else if (userInput == "pi")
             {
                 choiceTextBox.Clear();
-
                 ExaminePictureFrame();
             }
             else if (userInput == "lc")
             {
                 choiceTextBox.Clear();
-
                 ExamineLeftCurtain();
             }
             else if (userInput == "yes" && locationLabel.Text == "Left Curtain")
@@ -204,36 +193,28 @@ namespace ProgrammingCourseworkGUI
             else if (userInput == "no" && locationLabel.Text == "Left Curtain")
             {
                 choiceTextBox.Clear();
-
                 subOptionLabel.Text = "You decide not to press the button.";
-
                 locationLabel.Text = "Window";
             }
             else if (userInput == "rc")
             {
                 choiceTextBox.Clear();
-
                 ExamineRightCurtain();
             }
             else if (userInput == "b" && locationLabel.Text == "Room")
             {
                 choiceTextBox.Clear();
-
                 locationLabel.Text = "Bed";
-
                 GoToBed();
-
             }
             else if (userInput == "gb")
             {
                 choiceTextBox.Clear();
-
                 GoBack();
             }
             else
             {
                 choiceTextBox.Clear();
-
                 subOptionLabel.Text = $"{userInput} is not valid. Please enter your choice from the options, ensuring it is spelt correctly.";
             }
         }
@@ -264,28 +245,31 @@ namespace ProgrammingCourseworkGUI
             {
                 mainLabel.Text += $"- {cabinetChoice[i]}\n";
             }
-
         }
 
         void OpenTopDrawer()
         {
             playerOne.health -= 100;
+
+            // Calls function to check if player's health is below 0
             CheckHealth();
         }
 
         void OpenMiddleDrawer()
         {
+            // Checks if orange jewel is already in player's inventory
             if (!inventory.Contains(orangeJewel))
             {
+                // If player has bronze key, they can unlock middle drawer
                 if (inventory.Contains(bronzeKey))
                 {
                     subOptionLabel.Text = "You use the Bronze Key to unlock the Middle Drawer\n" +
                                           "You find a Orange Jewel.\n" +
                                           "A Orange Jewel has been added to your inventory.";
 
+                    // Adds orange jewel to player's inventory
                     inventory.Add(orangeJewel);
                     inventoryListBox.Items.Add(orangeJewel.name);
-
                 }
                 else
                 {
@@ -311,9 +295,9 @@ namespace ProgrammingCourseworkGUI
                                       "A Torch has been added to your inventory.\n";
 
                 inventory.Add(redCoin);
-                inventory.Add(torch);
-
                 inventoryListBox.Items.Add(redCoin.name);
+                
+                inventory.Add(torch);
                 inventoryListBox.Items.Add(torch.name);
             }
             else
@@ -323,8 +307,10 @@ namespace ProgrammingCourseworkGUI
             }
         }
 
+        // Function for player's interaction with fortune box
         void PickUpBox()
         {
+            // If fortune has already been told, reduce player's energy by 100
             if (fortuneTold)
             {
                 playerOne.energy -= 100;
@@ -338,9 +324,11 @@ namespace ProgrammingCourseworkGUI
                                       "A paper slip falls out.\n" +
                                       "...";
 
+                // Generates random number between 1 and 99 to determine fortune outcome
                 Random random = new Random();
                 int fortune = random.Next(1, 100);
 
+                // For determining the type of fortune
                 int greatFortune = 80;
                 int goodFortune = 70;
                 int misfortune = 40;
@@ -355,6 +343,7 @@ namespace ProgrammingCourseworkGUI
                     playerOne.energy -= 50;
                     CheckEnergy();
 
+                    // Initialises Great Misfortune Slip and sets its properties
                     Inventory greatMisfortuneSlip = new Inventory();
 
                     greatMisfortuneSlip.name = "Great Misfortune Slip";
