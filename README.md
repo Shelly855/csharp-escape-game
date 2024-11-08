@@ -13,7 +13,7 @@ The player explores different locations, collects items, solves puzzles, and eve
 - Listboxes
 - Reading from a File
 
-## Note
+## Notes
 - My first C# project—I can't bear to look at it now, but hey, I hope it shows I’ve got the basics down... 😅
 - Most comments in the code were added after development finished, with additional comments to be added as part of ongoing review.
 
