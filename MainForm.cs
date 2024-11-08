@@ -8,23 +8,27 @@ namespace ProgrammingCourseworkGUI
 {
     public partial class mainForm : Form
     {
+        // Other forms
         private tutorialForm tutorialForm;
         private arcadeForm arcadeForm;
 
+        // To track status of puzzles and events
         private bool arcadePuzzleSolved = false;
-
         private bool fortuneTold = false; //for PickUpBox
-
         private bool padlockUnlocked = false;
 
+        // List to contain items collected by player
         private List<Inventory> inventory = new List<Inventory>();
 
+        // Holds health and energy stats
         private PlayerStats playerOne = new PlayerStats();
 
+        // For the 3-digit padlock code
         private int padlockCodeOne;
         private int padlockCodeTwo;
         private int padlockCodeThree;
 
+        // Declaring items
         private Inventory torch;
         private Inventory bronzeKey;
         private Inventory goldenBell;
@@ -45,6 +49,7 @@ namespace ProgrammingCourseworkGUI
             tutorialForm = new tutorialForm();
             arcadeForm = new arcadeForm(this);
 
+            // Initialising items and setting their properties
             torch = new Inventory();
             torch.name = "Torch";
             torch.description = "A torch that still has some battery left.";
@@ -52,61 +57,57 @@ namespace ProgrammingCourseworkGUI
             torch.locationFound = "Cabinet Drawer";
 
             redCoin = new Inventory();
-
             redCoin.name = "Red Coin";
             redCoin.description = "A shiny red coin inscribed with a cat on one side.";
             redCoin.rarity = "Rare";
             redCoin.locationFound = "Cabinet Drawer";
 
             orangeJewel = new Inventory();
-
             orangeJewel.name = "Orange Jewel";
             orangeJewel.description = "An orange jewel that glitter with different hues of red, orange and yellow.";
             orangeJewel.rarity = "Super Rare";
             orangeJewel.locationFound = "Arcade Machine";
 
             bronzeKey = new Inventory();
-
             bronzeKey.name = "Bronze Key";
             bronzeKey.description = "A small bronze key.";
             bronzeKey.rarity = "Common";
             bronzeKey.locationFound = "Window";
 
             goldenBell = new Inventory();
-
             goldenBell.name = "Golden Bell";
             goldenBell.description = "A small golden bell that rings with a distorted tune.";
             goldenBell.rarity = "Rare";
             goldenBell.locationFound = "Picture Frame";
 
             blueJewel = new Inventory();
-
             blueJewel.name = "Blue Jewel";
             blueJewel.description = "A jewel that twinkles with a dark blue light.";
             blueJewel.rarity = "Super Rare";
             blueJewel.locationFound = "Arcade Machine";
 
             blackJewel = new Inventory();
-
             blackJewel.name = "Black Jewel";
             blackJewel.description = "A obsidian jewel that is as dark as night.";
             blackJewel.rarity = "Super Rare";
             blackJewel.locationFound = "Right Curtain";
 
             extractOfText = new Inventory();
-
             extractOfText.name = "Piece of Paper";
             extractOfText.description = "An extract of text about runes etc.";
             extractOfText.rarity = "Common";
             extractOfText.locationFound = "Bed";
 
+            // Generates random padlock code with three digits
             Random random = new Random();
             padlockCodeOne = random.Next(1, 9);
             padlockCodeTwo = random.Next(1, 9);
             padlockCodeThree = random.Next(1, 9);
 
+            // Sets form to open in maximized window state
             this.WindowState = FormWindowState.Maximized;
 
+            // List of location choices
             List<string> choice = new List<string>();
             {
                 choice.Add("Cabinet(c)");
