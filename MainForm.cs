@@ -49,7 +49,7 @@ namespace ProgrammingCourseworkGUI
             arcadeForm = new arcadeForm(this);
 
             // Initialising items and setting their properties
-            // Review: This could be refactored into a function
+            // Review: Could be refactored into a function
             torch = new Inventory();
             torch.name = "Torch";
             torch.description = "A torch that still has some battery left.";
@@ -121,7 +121,7 @@ namespace ProgrammingCourseworkGUI
                               "Please enter the initials of your choice from the options below into the text box and press enter:\n" +
                               "(e.g. c for Cabinet)\n\n";
 
-            // Review: could have used a foreach loop instead, which is more appropriate for a list
+            // Review: Could have used a foreach loop instead, which is more appropriate for a list
             for (int i = 0; i < choice.Count; i++)
             {
                 mainLabel.Text += $"- {choice[i]}\n";
