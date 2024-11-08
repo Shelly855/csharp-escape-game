@@ -22,3 +22,4 @@ My first C# project—I can't bear to look at it now, but hey, I hope it shows I
 - Using a foreach loop instead of a for loop to display lists
 - Adding more file handling
 - Refactoring code (e.g., creating a function for initializing variables and setting their properties)
+- Following standard naming conventions
